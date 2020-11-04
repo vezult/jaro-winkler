@@ -35,14 +35,14 @@ fn similarity(s1: &String, s2: &String) -> (f32, f32, f32, f32, f32) {
                     }
                     match_count += 1;
                     last_match_idx = s2_idx;
-                    break
+                    break;
                 // Match within allowed range
                 } else if idx_delta <= max_trans {
                     // Out of order match
                     if s2_idx < last_match_idx {
                         dbg!(c1, idx, s2_idx, "match trans");
                         trans_count += 1;
-                    }  else if idx < last_match_idx {
+                    } else if idx < last_match_idx {
                         dbg!(c1, idx, s2_idx, "match");
                         trans_count += 1;
                     } else {
@@ -52,7 +52,7 @@ fn similarity(s1: &String, s2: &String) -> (f32, f32, f32, f32, f32) {
                     }
                     match_count += 1;
                     last_match_idx = s2_idx;
-                    break
+                    break;
                 } else {
                     // Char exists and is in order, but is out of
                     // match range
@@ -106,8 +106,6 @@ pub fn winkler(string1: &String, string2: &String) -> f32 {
     sim_j + (p * l * (1.0 - sim_j))
 }
 
-
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -124,11 +122,10 @@ mod tests {
         let s1 = "crate".to_string();
         let s2 = "trace".to_string();
         assert_eq!(jaro(&s1, &s2), 0.73333335);
-        
+
         let s1 = "dixon".to_string();
         let s2 = "dicksonx".to_string();
         assert_eq!(jaro(&s1, &s2), 0.76666666);
-       
     }
 
     #[test]
@@ -144,7 +141,6 @@ mod tests {
         let s2 = "marhta".to_string();
         assert_eq!(jaro(&s1, &s2), 0.94444444);
     }
-
 
     #[test]
     fn jaro_substitution() -> () {
@@ -206,23 +202,23 @@ mod tests {
     fn jaro_winkler_test_cases() -> () {
         // From Winkler paper
         let tests: [(&str, &str, f32); 17] = [
-            ( "SHACKLEFORD",    "SHACKELFORD",  0.982 ),
-            ( "DUNNINGHAM",     "CUNNIGHAM",    0.896 ),
-            ( "NICHLESON",      "NICHULSON",    0.956 ),
-            ( "JONES",          "JOHNSON",      0.832 ),
-            ( "MASSEY",         "MASSIE",       0.933 ),
-            ( "ABROMS",         "ABRAMS",       0.922 ),
-            ( "HARDIN",         "MARTINEZ",     0.000 ),
-            ( "ITMAN",          "SMITH",        0.000 ),
-            ( "JERALDINE",      "GERALDINE",    0.926 ),
-            ( "MARHTA",         "MARTHA",       0.961 ),
-            ( "MICHELLE",       "MICHAEL",      0.921 ),
-            ( "JULIES",         "JULIUS",       0.933 ),
-            ( "TANYA",          "TONYA",        0.880 ),
-            ( "DWAYNE",         "DUANE",        0.840 ),
-            ( "SEAN",           "SUSAN",        0.805 ),
-            ( "JON",            "JOHN",         0.933 ),
-            ( "JON",            "JAN",          0.000 ),
+            ("SHACKLEFORD", "SHACKELFORD", 0.982),
+            ("DUNNINGHAM", "CUNNIGHAM", 0.896),
+            ("NICHLESON", "NICHULSON", 0.956),
+            ("JONES", "JOHNSON", 0.832),
+            ("MASSEY", "MASSIE", 0.933),
+            ("ABROMS", "ABRAMS", 0.922),
+            ("HARDIN", "MARTINEZ", 0.000),
+            ("ITMAN", "SMITH", 0.000),
+            ("JERALDINE", "GERALDINE", 0.926),
+            ("MARHTA", "MARTHA", 0.961),
+            ("MICHELLE", "MICHAEL", 0.921),
+            ("JULIES", "JULIUS", 0.933),
+            ("TANYA", "TONYA", 0.880),
+            ("DWAYNE", "DUANE", 0.840),
+            ("SEAN", "SUSAN", 0.805),
+            ("JON", "JOHN", 0.933),
+            ("JON", "JAN", 0.000),
         ];
 
         for (s1, s2, score) in tests.iter() {
@@ -245,4 +241,3 @@ mod tests {
         assert!(b.contains(&'b') == false);
     }
 }
-
