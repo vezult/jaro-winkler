@@ -14,7 +14,7 @@ struct CliOptions {
 fn split_line(line: String) -> (String, Option<String>) {
     let parts: Vec<&str>;
     let trimmed_line = line.trim();
-    let head = if trimmed_line.starts_with("\"") {
+    let head = if trimmed_line.starts_with('"') {
         parts = trimmed_line
             .trim_start_matches('"')
             .splitn(2, '"')
