@@ -1,5 +1,4 @@
 use std::cmp;
-use std::collections::BTreeSet;
 
 fn abs_diff(a: usize, b: usize) -> usize {
     if a > b {
@@ -9,7 +8,7 @@ fn abs_diff(a: usize, b: usize) -> usize {
     }
 }
 
-fn similarity(s1: &String, s2: &String) -> (f32, f32, f32, f32, f32) {
+fn similarity(s1: &str, s2: &str) -> (f32, f32, f32, f32, f32) {
     // Max distance that can be considered a match
     let s1_len = s1.len();
     let s2_len = s2.len();
@@ -18,12 +17,11 @@ fn similarity(s1: &String, s2: &String) -> (f32, f32, f32, f32, f32) {
     let mut match_count = 0;
     let mut trans_count = 0;
     let mut prefix_len = 0;
-    let mut matching_chars: BTreeSet<char> = BTreeSet::new();
     let mut last_match_idx = 0;
     for (idx, c1) in s1.char_indices() {
-        let mut s2_chars = s2.char_indices();
+        let s2_chars = s2.char_indices();
 
-        while let Some((s2_idx, c2)) = s2_chars.next() {
+        for (s2_idx, c2) in s2_chars {
             if c1 == c2 {
                 let idx_delta = abs_diff(idx, s2_idx);
                 // Same position
@@ -87,13 +85,13 @@ fn jaro_score(s1: f32, s2: f32, m: f32, t: f32) -> f32 {
     }
 }
 
-pub fn jaro(string1: &String, string2: &String) -> f32 {
+pub fn jaro(string1: &str, string2: &str) -> f32 {
     let (s1, s2, m, t, _) = similarity(string1, string2);
 
     jaro_score(s1, s2, m, t)
 }
 
-pub fn winkler(string1: &String, string2: &String) -> f32 {
+pub fn winkler(string1: &str, string2: &str) -> f32 {
     let (s1, s2, m, t, l) = similarity(string1, string2);
     let sim_j = jaro_score(s1, s2, m, t);
 
@@ -109,6 +107,7 @@ pub fn winkler(string1: &String, string2: &String) -> f32 {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::collections::BTreeSet;
 
     #[test]
     fn jaro_identical() -> () {
