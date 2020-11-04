@@ -1,0 +1,19 @@
+[package]
+name = "jaro-winkler"
+version = "0.1.0"
+authors = ["David H. R. Clymer <david@zettazebra.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+gumdrop = "0.8"
+
+[lib]
+name = "jaro"
+path = "src/jaro.rs"
+
+[[bin]]
+name = "jaro-winkler"
+path = "src/jaro-bin.rs"
+
